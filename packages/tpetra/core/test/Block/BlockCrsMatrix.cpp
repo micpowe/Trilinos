@@ -1701,7 +1701,7 @@ namespace {
            "uniformly distributed over processes. Blocksize=3." << endl;
     try {
       const GO indexBase = 0;
-      const LO tgt_num_local_elements = 3;
+      const LO tgt_num_local_elements = 2;
       const LO src_num_local_elements = (myRank == 0) ?
         static_cast<LO> (numRanks*tgt_num_local_elements) :
         static_cast<LO> (0);

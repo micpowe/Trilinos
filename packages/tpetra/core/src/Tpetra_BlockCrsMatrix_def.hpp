@@ -2778,14 +2778,14 @@ public:
                                                sizeof (LO) * maxRowNumEnt +
                                                numBytesPerValue * maxRowNumScalarEnt*/));
 
-       const int myRank = this->graph_.getRowMap ()->getComm ()->getRank ();
-       std::cout << std::endl << std::endl
-                 << "proc" << myRank
-                 << " unpackAndCombine"
-                 << " - scratchsize " << sizeof (GO) << "*" <<maxRowNumEnt << "  "
-                                         << sizeof (LO) << "*" <<maxRowNumEnt << "  "
-                                         <<numBytesPerValue << "*" <<maxRowNumScalarEnt
-                 << std::endl << std::endl;
+//       const int myRank = this->graph_.getRowMap ()->getComm ()->getRank ();
+//       std::cout << std::endl << std::endl
+//                 << "proc" << myRank
+//                 << " unpackAndCombine"
+//                 << " - scratchsize " << sizeof (GO) << "*" <<maxRowNumEnt << "  "
+//                                         << sizeof (LO) << "*" <<maxRowNumEnt << "  "
+//                                         <<numBytesPerValue << "*" <<maxRowNumScalarEnt
+//                 << std::endl << std::endl;
 
       using host_scratch_space = typename host_exec::scratch_memory_space;
       using pair_type = Kokkos::pair<size_t, size_t>;
@@ -2802,11 +2802,11 @@ public:
 //            (member.team_scratch (0), maxRowNumScalarEnt);
 
 //          Kokkos::View<GO*, host_exec> gblColInds
-//            (member.team_scratch (0), maxRowNumEnt);
+//            ("", maxRowNumEnt);
           Kokkos::View<LO*, host_exec> lclColInds
-            (member.team_scratch (0), maxRowNumEnt);
+            ("", maxRowNumEnt);
           Kokkos::View<impl_scalar_type*, host_exec> vals
-            (member.team_scratch (0), maxRowNumScalarEnt);
+            ("", maxRowNumScalarEnt);
 
           const size_t offval = offset(i);
           const LO lclRow = importLIDsHost(i);

@@ -2776,7 +2776,7 @@ public:
       const auto policy = policy_type (numImportLIDs, 1, 1)
         .set_scratch_size (0, Kokkos::PerTeam (sizeof (GO) * maxRowNumEnt +
                                                sizeof (LO) * maxRowNumEnt +
-                                               numBytesPerValue * maxRowNumScalarEnt+8));
+                                               numBytesPerValue * maxRowNumScalarEnt));
 
        const int myRank = this->graph_.getRowMap ()->getComm ()->getRank ();
        std::cout << std::endl << std::endl
@@ -2904,6 +2904,7 @@ public:
             }
             return;
           }
+          member.team_barrier();
         }); // for each import LID i
     }
 

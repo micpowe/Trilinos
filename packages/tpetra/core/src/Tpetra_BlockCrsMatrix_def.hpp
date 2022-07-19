@@ -2794,11 +2794,11 @@ public:
          [=] (const typename policy_type::member_type& member) {
           const size_t i = member.league_rank();
 
-          Kokkos::View<GO*, host_scratch_space> gblColInds
+          Kokkos::View<GO*, host_exec> gblColInds
             (member.team_scratch (0), maxRowNumEnt);
-          Kokkos::View<LO*, host_scratch_space> lclColInds
+          Kokkos::View<LO*, host_exec> lclColInds
             (member.team_scratch (0), maxRowNumEnt);
-          Kokkos::View<impl_scalar_type*, host_scratch_space> vals
+          Kokkos::View<impl_scalar_type*, host_exec> vals
             (member.team_scratch (0), maxRowNumScalarEnt);
 
           const size_t offval = offset(i);

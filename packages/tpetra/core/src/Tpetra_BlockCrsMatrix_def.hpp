@@ -2776,7 +2776,7 @@ public:
       const auto policy = policy_type (numImportLIDs, 1, 1)
         .set_scratch_size (0, Kokkos::PerTeam (sizeof (GO) * maxRowNumEnt +
                                                sizeof (LO) * maxRowNumEnt +
-                                               numBytesPerValue * maxRowNumScalarEnt));
+                                               numBytesPerValue * maxRowNumScalarEnt+100));
 
        const int myRank = this->graph_.getRowMap ()->getComm ()->getRank ();
        std::cout << std::endl << std::endl

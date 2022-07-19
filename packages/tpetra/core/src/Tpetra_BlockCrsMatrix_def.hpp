@@ -2774,9 +2774,9 @@ public:
     {
       using policy_type = Kokkos::TeamPolicy<host_exec>;
       const auto policy = policy_type (numImportLIDs, 1, 1)
-        .set_scratch_size (0, Kokkos::PerTeam (sizeof (GO) * maxRowNumEnt +
+        .set_scratch_size (0, Kokkos::PerTeam (sizeof (GO) * maxRowNumEnt /*+
                                                sizeof (LO) * maxRowNumEnt +
-                                               numBytesPerValue * maxRowNumScalarEnt));
+                                               numBytesPerValue * maxRowNumScalarEnt*/));
 
        const int myRank = this->graph_.getRowMap ()->getComm ()->getRank ();
        std::cout << std::endl << std::endl
@@ -2794,12 +2794,12 @@ public:
          [=] (const typename policy_type::member_type& member) {
           const size_t i = member.league_rank();
 
-          Kokkos::View<GO*, host_exec> gblColInds
+          Kokkos::View<GO*, host_scratch_space> gblColInds
             (member.team_scratch (0), maxRowNumEnt);
           Kokkos::View<LO*, host_exec> lclColInds
-            (member.team_scratch (0), maxRowNumEnt);
+            (/*member.team_scratch (0)*/"", maxRowNumEnt);
           Kokkos::View<impl_scalar_type*, host_exec> vals
-            (member.team_scratch (0), maxRowNumScalarEnt);
+            (/*member.team_scratch (0)*/"", maxRowNumScalarEnt);
 
           const size_t offval = offset(i);
           const LO lclRow = importLIDsHost(i);

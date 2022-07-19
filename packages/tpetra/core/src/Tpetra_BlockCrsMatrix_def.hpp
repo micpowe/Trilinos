@@ -2801,11 +2801,11 @@ public:
 //          Kokkos::View<impl_scalar_type*, host_scratch_space> vals
 //            (member.team_scratch (0), maxRowNumScalarEnt);
 
-//          Kokkos::View<GO*, host_exece> gblColInds
+//          Kokkos::View<GO*, host_exec> gblColInds
 //            (member.team_scratch (0), maxRowNumEnt);
-          Kokkos::View<LO*, host_exece> lclColInds
+          Kokkos::View<LO*, host_exec> lclColInds
             (member.team_scratch (0), maxRowNumEnt);
-          Kokkos::View<impl_scalar_type*, host_exece> vals
+          Kokkos::View<impl_scalar_type*, host_exec> vals
             (member.team_scratch (0), maxRowNumScalarEnt);
 
           const size_t offval = offset(i);
